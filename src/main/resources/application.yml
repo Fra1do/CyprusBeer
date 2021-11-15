@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    database: postgresql
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 20
+        jdbc.batch_size: 20
+        id.new_generator_mappings: false
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/cyprusbeer"
+    username: postgres
+    password: alkogolik
+    driverClassName: org.postgresql.Driver
+  server:
+    port: 8080 #set your port
