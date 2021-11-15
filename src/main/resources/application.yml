@@ -12,10 +12,17 @@ spring:
         default_batch_fetch_size: 20
         jdbc.batch_size: 20
         id.new_generator_mappings: false
+#  datasource:
+#    url: "jdbc:postgresql://localhost:5432/cyprusbeer"
+#    username: postgres
+#    password: alkogolik
+#    driverClassName: org.postgresql.Driver
+#  server:
+#    port: 8080 #set your port
   datasource:
-    url: "jdbc:postgresql://localhost:5432/cyprusbeer"
-    username: postgres
-    password: alkogolik
+    url: "jdbc:postgresql://ec2-54-171-25-232.eu-west-1.compute.amazonaws.com:5432/d75rth8bc1f2sb"
+    username: bwgikagomkvpco
+    password: ed6c050320d2a805b57670a96f53ebb8ddcfa3083ce164d84d08884d9f8d5a00
     driverClassName: org.postgresql.Driver
   server:
     port: 8080 #set your port
