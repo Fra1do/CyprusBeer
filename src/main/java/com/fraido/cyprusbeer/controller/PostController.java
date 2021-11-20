@@ -62,8 +62,8 @@ public class PostController {
    public void save(@RequestBody PostDto post) {
       try {
          Post newPost = new Post();
-         newPost.setTitle(newPost.getTitle());
-         newPost.setDescription(newPost.getDescription());
+         newPost.setTitle(post.getTitle());
+         newPost.setDescription(post.getDescription());
          int userId = post.getUserId();
          User user = usersRepository.findById(userId).get();
          newPost.setUser(user);
