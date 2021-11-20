@@ -59,7 +59,7 @@ public class PostController {
 
    @PostMapping("/post")
    @Operation(summary = "create new post")
-   public ResponseEntity save(@RequestBody PostDto post) {
+   public void save(@RequestBody PostDto post) {
       try {
          Post newPost = new Post();
          newPost.setTitle(newPost.getTitle());
@@ -68,9 +68,8 @@ public class PostController {
          User user = usersRepository.findById(userId).get();
          newPost.setUser(user);
          postsService.save(newPost);
-         return (ResponseEntity) ResponseEntity.status(HttpStatus.CREATED);
       } catch (Exception e) {
-         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Page not found");
+         System.out.println(e.getMessage());
       }
    }
 }
