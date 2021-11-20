@@ -1,6 +1,6 @@
 package com.fraido.cyprusbeer.repositories;
 
-import com.fraido.cyprusbeer.entity.UserEntity;
+import com.fraido.cyprusbeer.entity.User;
 import com.fraido.cyprusbeer.services.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +15,15 @@ public class UsersService implements IUsersService {
     private UsersRepository repository;
 
     @Override
-    public List<UserEntity> findAll() {
-        List<UserEntity> userEntities = new ArrayList<>();
+    public List<User> findAll() {
+        List<User> userEntities = new ArrayList<>();
         userEntities.addAll(repository.findAll());
 
         return userEntities;
     }
 
     @Override
-    public UserEntity findById(int id) {
+    public User findById(int id) {
         return findAll().stream()
                 .filter(p -> p.getId() == id)
                 .findFirst()

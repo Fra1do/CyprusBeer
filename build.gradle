@@ -6,7 +6,10 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_16
+}
 
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean

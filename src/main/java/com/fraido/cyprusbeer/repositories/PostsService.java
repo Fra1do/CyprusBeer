@@ -1,6 +1,6 @@
 package com.fraido.cyprusbeer.repositories;
 
-import com.fraido.cyprusbeer.entity.PostEntity;
+import com.fraido.cyprusbeer.entity.Post;
 import com.fraido.cyprusbeer.services.IPostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,15 @@ public class PostsService implements IPostsService {
     @Autowired
     private PostsRepository repository;
 
-     public List<PostEntity> findAll() {
-        List<PostEntity> postEntities = new ArrayList<>();
+     public List<Post> findAll() {
+        List<Post> postEntities = new ArrayList<>();
         postEntities.addAll(repository.findAll());
 
         return postEntities;
     }
 
     @Override
-    public PostEntity findById(int id) {
+    public Post findById(int id) {
         return findAll().stream()
                         .filter(p -> p.getId() == id)
                         .findFirst()
@@ -30,9 +30,9 @@ public class PostsService implements IPostsService {
     }
 
     @Override
-    public PostEntity save(PostEntity postEntity) {
-        repository.save(postEntity);
-        return postEntity;
+    public Post save(Post post) {
+        repository.save(post);
+        return post;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class PostsService implements IPostsService {
     }
 
     @Override
-    public void deleteByIdIs(PostEntity entity) {
+    public void deleteByIdIs(Post entity) {
 
     }
 

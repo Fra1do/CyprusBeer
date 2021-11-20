@@ -1,10 +1,10 @@
 package com.fraido.cyprusbeer.services;
 
-import com.fraido.cyprusbeer.entity.UserEntity;
+import com.fraido.cyprusbeer.entity.User;
 
 import java.util.List;
 
 public interface IUsersService {
-    List<UserEntity> findAll();
-    UserEntity findById(int id);
+    List<User> findAll();
+    User findById(int id);
 }

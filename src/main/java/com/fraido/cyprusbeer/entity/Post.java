@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "posts")
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostEntity {
+public class Post {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
@@ -24,5 +24,5 @@ public class PostEntity {
 
    @ManyToOne (optional=false, cascade = CascadeType.ALL)
    @JoinColumn (name="user_id")
-   private UserEntity userEntity;
+   private User user;
 }

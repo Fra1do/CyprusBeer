@@ -2,14 +2,14 @@ package com.fraido.cyprusbeer.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.fraido.cyprusbeer.entity.PostEntity;
+import com.fraido.cyprusbeer.entity.Post;
 import java.util.List;
 
 @Repository
-public interface PostsRepository extends CrudRepository<PostEntity, Long> {
-    List<PostEntity> findAll();
+public interface PostsRepository extends CrudRepository<Post, Long> {
+    List<Post> findAll();
 
-    PostEntity save(PostEntity postEntity);
+    Post save(Post post);
 
 //    PostEntity deleteByIdIs(int id);
 }

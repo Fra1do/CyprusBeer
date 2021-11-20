@@ -1,12 +1,12 @@
 package com.fraido.cyprusbeer.services;
-import com.fraido.cyprusbeer.entity.PostEntity;
+import com.fraido.cyprusbeer.entity.Post;
 import java.util.List;
 
 public interface IPostsService {
-    List<PostEntity> findAll();
-    PostEntity findById(int id);
-    PostEntity save(PostEntity postEntity);
+    List<Post> findAll();
+    Post findById(int id);
+    Post save(Post post);
     void deleteByIdIs(int id);
 
-    void deleteByIdIs(PostEntity entity);
+    void deleteByIdIs(Post entity);
 }
