@@ -5,6 +5,7 @@ import com.fraido.cyprusbeer.entity.Post;
 import com.fraido.cyprusbeer.entity.User;
 import com.fraido.cyprusbeer.repositories.UsersRepository;
 import com.fraido.cyprusbeer.services.IPostsService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class PostController {
    private UsersRepository usersRepository;
 
    @GetMapping("/posts")
+   @Operation(summary = "get all posts")
    public ResponseEntity getAllPosts() {
       List<Post> posts = postsService.findAll();
       ResponseEntity body = ResponseEntity.ok().body(posts);
@@ -30,6 +32,7 @@ public class PostController {
    }
 
    @GetMapping("/post/{id}")
+   @Operation(summary = "get post by id")
    public ResponseEntity getPostById(@PathVariable int id) {
       ResponseEntity body;
       try {
@@ -42,6 +45,7 @@ public class PostController {
    }
 
    @DeleteMapping("/post/{id}")
+   @Operation(summary = "delete post by id")
    public ResponseEntity deletePostById(@PathVariable int id) {
       ResponseEntity body;
       try {
@@ -54,8 +58,8 @@ public class PostController {
    }
 
    @PostMapping("/post")
+   @Operation(summary = "create new post")
    public ResponseEntity save(@RequestBody PostDto post) {
-      ResponseEntity body;
       try {
          Post newPost = new Post();
          newPost.setTitle(newPost.getTitle());
