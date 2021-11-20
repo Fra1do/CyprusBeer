@@ -41,26 +41,32 @@ public class PostController {
       return body;
    }
 
-   @DeleteMapping("/posts/{id}")
+   @DeleteMapping("/post/{id}")
    public ResponseEntity deletePostById(@PathVariable int id) {
       ResponseEntity body;
       try {
          postsService.deleteByIdIs(id);
          body = ResponseEntity.status(HttpStatus.OK).body("ok");
       } catch (Exception e) {
-         body = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Страница не найдена");
+         body = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Page not found");
       }
       return body;
    }
 
-   @PostMapping("/posts")
-   public Post save(@RequestBody PostDto post) {
-      Post myEntity = new Post();
-      myEntity.setTitle(post.getTitle());
-      myEntity.setDescription(post.getDescription());
-      int userId = post.getUserId();
-      User user = usersRepository.findById(userId).get();
-      myEntity.setUser(user);
-      return this.postsService.save(myEntity);
+   @PostMapping("/post")
+   public ResponseEntity save(@RequestBody PostDto post) {
+      ResponseEntity body;
+      try {
+         Post newPost = new Post();
+         newPost.setTitle(newPost.getTitle());
+         newPost.setDescription(newPost.getDescription());
+         int userId = post.getUserId();
+         User user = usersRepository.findById(userId).get();
+         newPost.setUser(user);
+         postsService.save(newPost);
+         return (ResponseEntity) ResponseEntity.status(HttpStatus.CREATED);
+      } catch (Exception e) {
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Page not found");
+      }
    }
 }
