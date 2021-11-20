@@ -23,6 +23,9 @@ public class PostController {
    @Autowired
    private UsersRepository usersRepository;
 
+   @Autowired
+   private Post newPost;
+
    @GetMapping("/posts")
    @Operation(summary = "get all posts")
    public ResponseEntity getAllPosts() {
@@ -59,9 +62,9 @@ public class PostController {
 
    @PostMapping("/post")
    @Operation(summary = "create new post")
+   @Autowired
    public void save(@RequestBody PostDto post) {
       try {
-         Post newPost = new Post();
          newPost.setTitle(post.getTitle());
          newPost.setDescription(post.getDescription());
          int userId = post.getUserId();

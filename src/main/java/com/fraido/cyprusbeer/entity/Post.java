@@ -3,6 +3,7 @@ package com.fraido.cyprusbeer.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "posts")
 @AllArgsConstructor
 @NoArgsConstructor
+@Component
 public class Post {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)

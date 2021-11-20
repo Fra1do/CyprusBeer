@@ -1,11 +1,11 @@
 package com.fraido.cyprusbeer.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
 @Data
-@AllArgsConstructor
+@Component
 public class PostDto {
     @JsonProperty("id")
     int id;
