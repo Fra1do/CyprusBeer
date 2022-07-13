@@ -1,6 +1,7 @@
 package com.fraido.cyprusbeer.repositories;
 
 import com.fraido.cyprusbeer.entity.User;
+import com.fraido.cyprusbeer.requests.UserRequest;
 import com.fraido.cyprusbeer.services.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,12 @@ public class UsersService implements IUsersService {
                 .filter(p -> p.getId() == id)
                 .findFirst()
                 .get();
+    }
+
+    @Override
+    public User save(User user) {
+        repository.save(user);
+        return user;
     }
 
 
