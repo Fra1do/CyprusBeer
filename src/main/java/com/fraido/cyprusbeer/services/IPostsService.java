@@ -7,6 +7,4 @@ public interface IPostsService {
     Post findById(int id);
     Post save(Post post);
     void deleteByIdIs(int id);
-
-    void deleteByIdIs(Post entity);
 }

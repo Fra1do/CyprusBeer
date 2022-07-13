@@ -1,6 +1,6 @@
 package com.fraido.cyprusbeer.controller;
 
-import com.fraido.cyprusbeer.dto.PostDto;
+import com.fraido.cyprusbeer.requests.PostRequest;
 import com.fraido.cyprusbeer.entity.Post;
 import com.fraido.cyprusbeer.entity.User;
 import com.fraido.cyprusbeer.repositories.UsersRepository;
@@ -63,16 +63,17 @@ public class PostController {
    @PostMapping("/post")
    @Operation(summary = "create new post")
    @Autowired
-   public void save(@RequestBody PostDto post) {
+   public Post save(@RequestBody PostRequest post) {
       try {
          newPost.setTitle(post.getTitle());
          newPost.setDescription(post.getDescription());
          int userId = post.getUserId();
-         User user = usersRepository.findById(userId).get();
+         User user = usersRepository.findById(userId).orElse(null);
          newPost.setUser(user);
          postsService.save(newPost);
       } catch (Exception e) {
          System.out.println(e.getMessage());
       }
+      return newPost;
    }
 }
