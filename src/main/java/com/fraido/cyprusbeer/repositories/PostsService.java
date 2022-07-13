@@ -39,10 +39,4 @@ public class PostsService implements IPostsService {
     public void deleteByIdIs(int id) {
         repository.delete(findById(id));
     }
-
-    @Override
-    public void deleteByIdIs(Post entity) {
-
-    }
-
 }

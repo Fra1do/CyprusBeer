@@ -25,6 +25,6 @@ public class Post {
    private String description;
 
    @ManyToOne (optional=false, cascade = CascadeType.ALL)
-   @JoinColumn (name="user_id")
+   @JoinColumn (name = "user_id", referencedColumnName = "id")
    private User user;
 }
