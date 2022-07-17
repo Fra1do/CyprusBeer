@@ -3,6 +3,7 @@ package com.fraido.cyprusbeer.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -24,7 +25,8 @@ public class Post {
    @Column(name = "description")
    private String description;
 
-   @ManyToOne (optional=false, cascade = CascadeType.ALL)
+   @ManyToOne (optional=false)
+   @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
    @JoinColumn (name = "user_id", referencedColumnName = "id")
    private User user;
 }

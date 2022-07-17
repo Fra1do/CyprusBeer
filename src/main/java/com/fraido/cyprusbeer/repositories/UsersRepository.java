@@ -1,12 +1,12 @@
 package com.fraido.cyprusbeer.repositories;
 
 import com.fraido.cyprusbeer.entity.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface UsersRepository extends CrudRepository<User, Integer> {
-    List<User> findAll();
+public interface UsersRepository extends JpaRepository<User, Integer> {
+    User findByUserName(String userName);
+
+
 }
