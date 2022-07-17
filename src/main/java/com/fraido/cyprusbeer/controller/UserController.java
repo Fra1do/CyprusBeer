@@ -53,12 +53,4 @@ public class UserController {
         }
         return user;
     }
-
-    @GetMapping("/users/{username}")
-    @Operation(summary = "get all users by username")
-    public ResponseEntity getAllUsersByUsername(String username) {
-        User users = usersRepository.getUsersByUserName(username);
-        ResponseEntity body = ResponseEntity.ok().body(users);
-        return body;
-    }
 }
