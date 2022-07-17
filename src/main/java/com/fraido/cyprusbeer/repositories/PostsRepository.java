@@ -1,14 +1,15 @@
 package com.fraido.cyprusbeer.repositories;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 import com.fraido.cyprusbeer.entity.Post;
+import com.fraido.cyprusbeer.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
-public interface PostsRepository extends CrudRepository<Post, Long> {
-    List<Post> findAll();
+public interface PostsRepository extends JpaRepository<Post, Integer> {
+    List<Post> findByTitleContainingIgnoreCase(String title);
 
-    Post save(Post post);
-
+    List<Post> findByUser(User user);
 }

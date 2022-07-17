@@ -1,10 +1,10 @@
 package com.fraido.cyprusbeer.controller;
 
-import com.fraido.cyprusbeer.requests.PostRequest;
 import com.fraido.cyprusbeer.entity.Post;
 import com.fraido.cyprusbeer.entity.User;
 import com.fraido.cyprusbeer.repositories.UsersRepository;
-import com.fraido.cyprusbeer.services.IPostsService;
+import com.fraido.cyprusbeer.requests.PostRequest;
+import com.fraido.cyprusbeer.services.PostsService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import java.util.List;
 public class PostController {
 
    @Autowired
-   private IPostsService postsService;
+   private PostsService postsService;
 
    @Autowired
    private UsersRepository usersRepository;
@@ -52,7 +52,7 @@ public class PostController {
    public ResponseEntity deletePostById(@PathVariable int id) {
       ResponseEntity body;
       try {
-         postsService.deleteByIdIs(id);
+         postsService.delete(id);
          body = ResponseEntity.status(HttpStatus.OK).body("ok");
       } catch (Exception e) {
          body = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Page not found");
@@ -75,5 +75,32 @@ public class PostController {
          System.out.println(e.getMessage());
       }
       return newPost;
+   }
+
+   @GetMapping("/posts/{title}")
+   @Operation(summary = "get all posts by title")
+   public ResponseEntity getAllPostsByTitle(@PathVariable String title) {
+      ResponseEntity body;
+      try {
+         List<Post> entity = postsService.findByTitle(title);
+         body = ResponseEntity.ok().body(entity);
+      } catch (Exception e) {
+         body = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Страница не найдена");
+      }
+      return body;
+   }
+
+   @GetMapping("/posts/user/{user}")
+   @Operation(summary = "get all posts by user")
+   public ResponseEntity getAllPostsByUser(@PathVariable String user) {
+      ResponseEntity body;
+      try {
+         User foundUser = usersRepository.findByUserName(user);
+         List<Post> entity = postsService.findByUser(foundUser);
+         body = ResponseEntity.ok().body(entity);
+      } catch (Exception e) {
+         body = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Страница не найдена");
+      }
+      return body;
    }
 }

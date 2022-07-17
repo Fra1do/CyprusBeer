@@ -1,9 +1,8 @@
 package com.fraido.cyprusbeer.controller;
 
 import com.fraido.cyprusbeer.entity.User;
-import com.fraido.cyprusbeer.repositories.UsersRepository;
 import com.fraido.cyprusbeer.requests.UserRequest;
-import com.fraido.cyprusbeer.services.IUsersService;
+import com.fraido.cyprusbeer.services.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 public class UserController {
-    @Autowired
-    private IUsersService usersService;
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UsersService usersRepository;
 
     @Autowired
     private User newUser;
@@ -26,7 +23,7 @@ public class UserController {
     @GetMapping("/users")
     @Operation(summary = "get all users")
     public ResponseEntity getAllUsers() {
-        List<User> users = usersService.findAll();
+        List<User> users = usersRepository.findAll();
         ResponseEntity body = ResponseEntity.ok().body(users);
         return body;
     }
@@ -36,7 +33,7 @@ public class UserController {
     public User save(@RequestBody UserRequest userRequest) {
         try {
             newUser.setUserName(userRequest.getUsername());
-            usersService.save(newUser);
+            usersRepository.save(newUser);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -48,12 +45,20 @@ public class UserController {
     public User edit(@RequestBody UserRequest userRequest, @PathVariable int id) {
         User user = null;
         try {
-           user = usersRepository.findById(id).orElseGet(null);
+           user = usersRepository.findById(id);
            user.setUserName(userRequest.getUsername());
-           usersService.save(user);
+            usersRepository.save(user);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return user;
+    }
+
+    @GetMapping("/users/{username}")
+    @Operation(summary = "get all users by username")
+    public ResponseEntity getAllUsersByUsername(String username) {
+        User users = usersRepository.getUsersByUserName(username);
+        ResponseEntity body = ResponseEntity.ok().body(users);
+        return body;
     }
 }
