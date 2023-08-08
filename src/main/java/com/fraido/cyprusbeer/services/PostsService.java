@@ -55,4 +55,14 @@ public class PostsService {
     public List<Post> findByUser(User user) {
         return repository.findByUser(user);
     }
+
+    @Transactional
+    public void deletePostsByTitle(String title) {
+        List<Post> posts = findByTitle(title);
+        for (Post p : posts
+             ) {
+            System.out.println(p.getId());
+            delete(p.getId());
+        }
+    }
 }

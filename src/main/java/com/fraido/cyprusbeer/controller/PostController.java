@@ -4,6 +4,7 @@ import com.fraido.cyprusbeer.entity.Post;
 import com.fraido.cyprusbeer.entity.User;
 import com.fraido.cyprusbeer.repositories.UsersRepository;
 import com.fraido.cyprusbeer.requests.PostRequest;
+import com.fraido.cyprusbeer.responses.ResponseHandler;
 import com.fraido.cyprusbeer.services.PostsService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,13 @@ public class PostController {
       ResponseEntity body;
       try {
          Post entity = postsService.findById(id);
-         body = ResponseEntity.ok().body(entity);
+         if (entity == null) {
+            body = ResponseHandler.generateResponse("Page not found", HttpStatus.NOT_FOUND);
+         } else {
+            body = ResponseHandler.generateResponse("ok", HttpStatus.OK, entity);
+         }
       } catch (Exception e) {
-         body = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Страница не найдена");
+         body = ResponseHandler.generateResponse("Page not found", HttpStatus.NOT_FOUND);
       }
       return body;
    }
@@ -60,7 +65,9 @@ public class PostController {
       return body;
    }
 
-   @PostMapping("/post")
+   @RequestMapping(value = "/post",
+           method = RequestMethod.POST,
+           produces = "application/json")
    @Operation(summary = "create new post")
    @Autowired
    public Post save(@RequestBody PostRequest post) {
@@ -77,7 +84,9 @@ public class PostController {
       return newPost;
    }
 
-   @GetMapping("/posts/{title}")
+   @RequestMapping(value = "/posts/{title}",
+   method = RequestMethod.GET,
+   produces = "application/json")
    @Operation(summary = "get all posts by title")
    public ResponseEntity getAllPostsByTitle(@PathVariable String title) {
       ResponseEntity body;
@@ -103,4 +112,20 @@ public class PostController {
       }
       return body;
    }
+
+   @RequestMapping(value = "/posts/{title}",
+           method = RequestMethod.DELETE,
+           produces = "application/json")
+   @Operation(summary = "delete posts by title")
+   public ResponseEntity deletePostById(@PathVariable String title) {
+      ResponseEntity body;
+      try {
+         postsService.deletePostsByTitle(title);
+         body = ResponseHandler.generateResponse("ok", HttpStatus.OK, null);
+      } catch (Exception e) {
+         body = ResponseHandler.generateResponse("Page not found", HttpStatus.NOT_FOUND, null);
+      }
+      return body;
+   }
+
 }
